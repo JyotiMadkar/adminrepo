@@ -253,7 +253,7 @@ interface expandedRows {
                         </div>
                         <div class="flex flex-col grow basis-0 gap-2">
                         <label for="marketSector">Market Sector</label>
-                        <p-select [options]="dropdownValues" optionLabel="name" [(ngModel)]="profile.marketSector" [ngModelOptions]="{standalone: true}" placeholder="Select" />
+                        <p-select [options]="dropdownValues" name="marketSector" optionLabel="name" [(ngModel)]="profile.marketSector" [ngModelOptions]="{standalone: true}" placeholder="Select" />
                         </div>
                         <div class="flex flex-col grow basis-0 gap-2">
                         <label for="profileStatus">Profile Status</label>
@@ -290,8 +290,6 @@ interface expandedRows {
                                 <label class="ml-2">EFT</label> -->
                                 <p-checkbox [(ngModel)]="isEFTSelected" [binary]="true" name="productType" />
                                 <label class="ml-2">EFT</label>
-                                <label class="ml-2">EFT</label>
-                                 <label class="ml-2">EFT</label>
                             </div>
                             </div>
                         </div>
