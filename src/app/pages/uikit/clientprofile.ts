@@ -290,6 +290,7 @@ interface expandedRows {
                                 <label class="ml-2">EFT</label> -->
                                 <p-checkbox [(ngModel)]="isEFTSelected" [binary]="true" name="productType" />
                                 <label class="ml-2">EFT</label>
+                                <label class="ml-2">EFT</label>
                             </div>
                             </div>
                         </div>

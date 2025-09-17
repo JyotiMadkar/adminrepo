@@ -26,6 +26,7 @@ export class ProfileService {
   }
 
  addUser(profile: Profile): Observable<Profile> {
+  //comment
     return this.http.post<Profile>(`${this.apiUrl}/addAPIProfileDetails`, profile);
   }
 
