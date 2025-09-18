@@ -9,7 +9,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { ToastModule } from 'primeng/toast';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { RatingModule } from 'primeng/rating';
 import { RippleModule } from 'primeng/ripple';
@@ -218,50 +218,54 @@ interface expandedRows {
         <div class="md:w-1/2">
             <div class="card">
                 <p-dialog header="Create Client Profile" [(visible)]="display" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '60vw' }" [modal]="true" >
-                <form>
+                <form #profileForm="ngForm" (ngSubmit)="onSubmit(profileForm)">
                     <!-- Profile Details -->
                     <div class="font-semibold text-xl">Profile Details</div>
                     <div class="flex flex-wrap gap-6">
                         <div class="flex flex-col grow basis-0 gap-2">
                         <label for="apiProfileId">API Profile ID</label>
-                        <input pInputText id="apiProfileId" [(ngModel)]="profile.apiProfileId" [ngModelOptions]="{standalone: true}" name="apiProfileId" type="text" />
+                        <input pInputText id="apiProfileId" [(ngModel)]="profile.apiProfileId"  name="apiProfileId" type="text" />
                         </div>
                         <div class="flex flex-col grow basis-0 gap-2">
                         <label for="prefix">Prefix</label>
-                        <input pInputText id="prefix" [(ngModel)]="profile.prefix" [ngModelOptions]="{standalone: true}" type="text" />
+                        <input pInputText id="prefix" [(ngModel)]="profile.prefix" name="prefix" type="text" />
                         </div>
                     </div>
 
                     <!-- General Info -->
                     <div class="font-semibold text-xl">General Info</div>
-                    <div class="flex flex-wrap gap-6">
+                    <div class="flex flex-wrap gap-10">
                         <div class="flex flex-col grow basis-0 gap-2">
                         <label for="companyName">Company Name</label>
-                        <input pInputText id="companyName" [(ngModel)]="profile.companyName" [ngModelOptions]="{standalone: true}"  type="text" />
+                        <input pInputText id="companyName" [(ngModel)]="profile.companyName" name="companyName"  type="text" required />
                         </div>
+                        <div *ngIf="profileForm.submitted && !profile.companyName" class="text-red-500">
+                            Company Name is required.
+                        </div>
+
                         <div class="flex flex-col grow basis-0 gap-2">
                         <label for="cisNumber">CIS Number</label>
-                        <input pInputText id="cisNumber" [(ngModel)]="profile.cisNumber" [ngModelOptions]="{standalone: true}" type="text" />
+                        <input pInputText id="cisNumber" [(ngModel)]="profile.cisNumber" name="cisNumber"  type="text" />
                         </div>
                         <div class="flex flex-col grow basis-0 gap-2">
                         <label for="dcarNumber">DCAR Number</label>
-                        <input pInputText id="dcarNumber" [(ngModel)]="profile.dcarNumber" [ngModelOptions]="{standalone: true}" type="text" />
+                        <input pInputText id="dcarNumber" [(ngModel)]="profile.dcarNumber" name="dcarNumber" type="text" />
                         </div>
                         <div class="flex flex-col grow basis-0 gap-2">
                         <label for="registrationNumber">Registration Number</label>
-                        <input pInputText id="registrationNumber" [(ngModel)]="profile.registrationNumber" [ngModelOptions]="{standalone: true}" type="text" />
+                        <input pInputText id="registrationNumber" [(ngModel)]="profile.registrationNumber" name="registrationNumber"  type="text" />
                         </div>
                         <div class="flex flex-col grow basis-0 gap-2">
                         <label for="marketSector">Market Sector</label>
-                        <p-select [options]="dropdownValues" name="marketSector" optionLabel="name" [(ngModel)]="profile.marketSector" [ngModelOptions]="{standalone: true}" placeholder="Select" />
+                        <p-select [options]="dropdownValues" name="marketSector" optionLabel="name" optionValue="name"[(ngModel)]="profile.marketSector" placeholder="Select a sector" />
                         </div>
                         <div class="flex flex-col grow basis-0 gap-2">
                         <label for="profileStatus">Profile Status</label>
-                        <input pInputText id="profileStatus" [(ngModel)]="profile.profileStatus" [ngModelOptions]="{standalone: true}" type="text" />
+                        <input pInputText id="profileStatus" [(ngModel)]="profile.profileStatus" name="profileStatus" type="text" />
                         </div>
                         <div class="flex flex-col grow basis-0 gap-2">
                         <label for="profileState">Profile State</label>
-                        <input pInputText id="profileState" [(ngModel)]="profile.profileState" [ngModelOptions]="{standalone: true}" type="text" />
+                        <input pInputText id="profileState" [(ngModel)]="profile.profileState" name="profileState" type="text" />
                         </div>
                     </div>
 
@@ -272,11 +276,11 @@ interface expandedRows {
                             <label for="clientType">Client Type</label>
                             <div class="flex flex-col md:flex-row gap-4">
                                 <div class="flex items-center">
-                                    <p-radiobutton name="clientType" value="Internal" [(ngModel)]="profile.clientType" [ngModelOptions]="{standalone: true}" inputId="internal" /> 
+                                    <p-radiobutton name="clientType" value="Internal" [(ngModel)]="profile.clientType"  inputId="internal" /> 
                                     <label for="internal" class="ml-2">Internal</label>
                                 </div>
                                 <div class="flex items-center">
-                                    <p-radiobutton name="clientType" value="External" [(ngModel)]="profile.clientType" [ngModelOptions]="{standalone: true}" inputId="external" />
+                                    <p-radiobutton name="clientType" value="External" [(ngModel)]="profile.clientType"  inputId="external" />
                                     <label for="external" class="ml-2">External</label>
                                 </div>
                             </div>
@@ -286,8 +290,6 @@ interface expandedRows {
                             <label for="productType">Product Type</label>
                             <div class="flex flex-col md:flex-row gap-4">
                             <div class="flex items-center">
-                                <!-- <p-checkbox value="EFT"  />
-                                <label class="ml-2">EFT</label> -->
                                 <p-checkbox [(ngModel)]="isEFTSelected" [binary]="true" name="productType" />
                                 <label class="ml-2">EFT</label>
                             </div>
@@ -300,11 +302,11 @@ interface expandedRows {
                     <div class="flex flex-wrap gap-6">
                         <div class="flex flex-col grow basis-0 gap-2">
                         <label for="connectDirectAdd">Connect Direct Address</label>
-                        <input pInputText id="connectDirectAdd" [(ngModel)]="profile.connectDirectAdd" [ngModelOptions]="{standalone: true}"  type="text" />
+                        <input pInputText id="connectDirectAdd" [(ngModel)]="profile.connectDirectAdd" name="connectDirectAdd" type="text" />
                         </div>
                         <div class="flex flex-col grow basis-0 gap-2">
                         <label for="connectDirectFileType">Connect Direct File Type</label>
-                        <input pInputText id="connectDirectFileType" [(ngModel)]="profile.connectDirectFileType" [ngModelOptions]="{standalone: true}" type="text" />
+                        <input pInputText id="connectDirectFileType" [(ngModel)]="profile.connectDirectFileType" name="connectDirectFileType" type="text" />
                         </div>
                     </div>
 
@@ -358,46 +360,32 @@ interface expandedRows {
     providers: [ConfirmationService, MessageService, CustomerService, ProductService]
 })
 export class ClientProfile implements OnInit {
-    profile: Profile = new Profile();
-   
-    
+        profile: Profile = new Profile();
         isExpanded: boolean = false;
-    
         balanceFrozen: boolean = false;
-    
         loading: boolean = true;
-        tableData: any[]=[];
-        items: any[] = [];
-         profiles: Profile[] = [];
-         searchTerm = new Subject<string>();
-
-        formData = {
-            apiProfileId: '',
-            prefix: '',
-            companyName: '',
-            cisNumber: '',
-            dcarNumber: '',
-            registrationNumber: '',
-            marketSector: null,
-            profileStatus: '',
-            profileState: '',
-            clientType: '',
-            productType: '',
-            connectDirectAdd: '',
-            connectDirectFileType: '',
-            physicalAddress: '',
-            postalAddress: '',
-            telephoneNumber: '',
-            emailAddress: '',
-            faxNumber: ''
-        };
-
-    
-        @ViewChild('filter') filter!: ElementRef;
+        profiles: Profile[] = [];
         dt1: any;
         table: any;
-    productType: any;
-    
+       // profile: any = {};
+        productType: any;
+        marketSector: string | null | undefined;
+        profileForm!: FormGroup;
+        display: boolean = false;
+        
+        
+        dropdownValues = [
+            { name: 'NBB'},
+            { name: 'NBI' },
+            { name: 'NCB' }
+        ];
+
+
+        checkboxValue: any[] = [];
+        radioValue: any = null;
+        
+        @ViewChild('filter') filter!: ElementRef;
+        
         constructor(  private profileService: ProfileService,
             private service: MessageService,
             private fb: FormBuilder
@@ -407,34 +395,9 @@ export class ClientProfile implements OnInit {
              this.profileService.getData().subscribe((data) => {
                 this.profiles = data;
                 this.loading = false;
-            
             });
-            // this.profileForm = this.fb.group({
-            //     apiProfileId: [''],
-            //     prefix: [''],
-            //     companyName: [''],
-            //     cisNumber: [''],
-            //     dcarNumber: [''],
-            //     registrationNumber: [''],
-            //     marketSector: [null],
-            //     profileStatus: [''],
-            //     profileState: [''],
-            //     clientType: [''],
-            //     productType: [''],
-            //     connectDirectAdd: [''],
-            //     connectDirectFileType: [''],
-            //     physicalAddress: [''],
-            //     postalAddress: [''],
-            //     telephoneNumber: [''],
-            //     emailAddress: [''],
-            //     faxNumber: ['']
-            //     });
-
-                     
-         }
-        submitForm() {
-            console.log(this.profileForm.value);
         }
+        
         onGlobalFilter(table: Table, event: Event) {
             table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
         }
@@ -447,9 +410,8 @@ export class ClientProfile implements OnInit {
     
        
         //To hide and show the modal
-        display: boolean = false;
         open() {
-        this.display = true;
+            this.display = true;
         }
 
         close() {
@@ -457,10 +419,6 @@ export class ClientProfile implements OnInit {
         }
 
         //edit a profile
-        profileForm!: FormGroup;
-
-        selectedProfile: any;
-
         editRow(id: number) {
             this.loading = true;
             this.profileService.getUser(id).subscribe({
@@ -491,9 +449,6 @@ export class ClientProfile implements OnInit {
               this.profile.productType = value ? 'EFT' : undefined;
         }
 
-
-        
-
        //Delete a selected profile
         deleteRow(id: number) {
             this.profileService.deleteUser(id).subscribe({
@@ -511,23 +466,25 @@ export class ClientProfile implements OnInit {
             });
         }
 
-        dropdownValue: any = null;
-        dropdownValues = [
-            { name: 'NBB', code: 'NY' },
-            { name: 'NAR', code: 'RM' },
-            { name: 'NCB', code: 'LDN' }
-        ];
+        
+        onSubmit(form: NgForm) {
+            if (form.valid) {
+                const payload: any = { ...this.profile };
 
-        // clientType: any = null;
-        // clientTypes = [
-        //     { name: 'Internal', code: 'NY' },
-        //     { name: 'External', code: 'RM' }
-        // ];
-
-        checkboxValue: any[] = [];
-        radioValue: any = null;
+                this.profileService.addUser(payload).subscribe({
+                    next: (response) => {
+                    console.log('Profile saved successfully:', response);
+                        alert('Profile saved!');
+                        form.resetForm(); // Reset form after save
+                    },
+                    error: (error) => {
+                        console.error('Error saving profile:', error);
+                        alert('Failed to save profile. Please try again.');
+                    }
+                });
+            } else {
+                alert('Please fill out all required fields.');
+            }
+        }
+   
     }
-
-function $any(target: EventTarget | null) {
-    throw new Error('Function not implemented.');
-}
