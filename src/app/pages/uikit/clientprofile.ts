@@ -215,135 +215,131 @@ interface expandedRows {
             </p-table>
         </div>
        
-        <div class="md:w-1/2">
-            <div class="card">
-                <p-dialog header="Create Client Profile" [(visible)]="display" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '60vw' }" [modal]="true" >
-                <form #profileForm="ngForm" (ngSubmit)="onSubmit(profileForm)">
-                    <!-- Profile Details -->
-                    <div class="font-semibold text-xl">Profile Details</div>
-                    <div class="flex flex-wrap gap-6">
-                        <div class="flex flex-col grow basis-0 gap-2">
-                        <label for="apiProfileId">API Profile ID</label>
-                        <input pInputText id="apiProfileId" [(ngModel)]="profile.apiProfileId"  name="apiProfileId" type="text" />
-                        </div>
-                        <div class="flex flex-col grow basis-0 gap-2">
-                        <label for="prefix">Prefix</label>
-                        <input pInputText id="prefix" [(ngModel)]="profile.prefix" name="prefix" type="text" />
-                        </div>
+        <p-dialog header="Create Client Profile" [(visible)]="display" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '60vw' }" [modal]="true" >
+            <form #profileForm="ngForm" (ngSubmit)="onSubmit(profileForm)">
+                <!-- Profile Details -->
+                <div class="font-semibold text-xl">Profile Details</div>
+                <div class="flex flex-wrap gap-6">
+                    <div class="flex flex-col grow basis-0 gap-2">
+                    <label for="apiProfileId">API Profile ID</label>
+                    <input pInputText id="apiProfileId" [(ngModel)]="profile.apiProfileId"  name="apiProfileId" type="text" />
+                    </div>
+                    <div class="flex flex-col grow basis-0 gap-2">
+                    <label for="prefix">Prefix</label>
+                    <input pInputText id="prefix" [(ngModel)]="profile.prefix" name="prefix" type="text" />
+                    </div>
+                </div>
+
+                <!-- General Info -->
+                <div class="font-semibold text-xl">General Info</div>
+                <div class="flex flex-wrap gap-10">
+                    <div class="flex flex-col grow basis-0 gap-2">
+                    <label for="companyName">Company Name</label>
+                    <input pInputText id="companyName" [(ngModel)]="profile.companyName" name="companyName"  type="text" required />
+                    </div>
+                    <div *ngIf="profileForm.submitted && !profile.companyName" class="text-red-500">
+                        Company Name is required.
                     </div>
 
-                    <!-- General Info -->
-                    <div class="font-semibold text-xl">General Info</div>
-                    <div class="flex flex-wrap gap-10">
-                        <div class="flex flex-col grow basis-0 gap-2">
-                        <label for="companyName">Company Name</label>
-                        <input pInputText id="companyName" [(ngModel)]="profile.companyName" name="companyName"  type="text" required />
-                        </div>
-                        <div *ngIf="profileForm.submitted && !profile.companyName" class="text-red-500">
-                            Company Name is required.
-                        </div>
-
-                        <div class="flex flex-col grow basis-0 gap-2">
-                        <label for="cisNumber">CIS Number</label>
-                        <input pInputText id="cisNumber" [(ngModel)]="profile.cisNumber" name="cisNumber"  type="text" />
-                        </div>
-                        <div class="flex flex-col grow basis-0 gap-2">
-                        <label for="dcarNumber">DCAR Number</label>
-                        <input pInputText id="dcarNumber" [(ngModel)]="profile.dcarNumber" name="dcarNumber" type="text" />
-                        </div>
-                        <div class="flex flex-col grow basis-0 gap-2">
-                        <label for="registrationNumber">Registration Number</label>
-                        <input pInputText id="registrationNumber" [(ngModel)]="profile.registrationNumber" name="registrationNumber"  type="text" />
-                        </div>
-                        <div class="flex flex-col grow basis-0 gap-2">
-                        <label for="marketSector">Market Sector</label>
-                        <p-select [options]="dropdownValues" name="marketSector" optionLabel="name" optionValue="name"[(ngModel)]="profile.marketSector" placeholder="Select a sector" />
-                        </div>
-                        <div class="flex flex-col grow basis-0 gap-2">
-                        <label for="profileStatus">Profile Status</label>
-                        <input pInputText id="profileStatus" [(ngModel)]="profile.profileStatus" name="profileStatus" type="text" />
-                        </div>
-                        <div class="flex flex-col grow basis-0 gap-2">
-                        <label for="profileState">Profile State</label>
-                        <input pInputText id="profileState" [(ngModel)]="profile.profileState" name="profileState" type="text" />
-                        </div>
+                    <div class="flex flex-col grow basis-0 gap-2">
+                    <label for="cisNumber">CIS Number</label>
+                    <input pInputText id="cisNumber" [(ngModel)]="profile.cisNumber" name="cisNumber"  type="text" />
                     </div>
+                    <div class="flex flex-col grow basis-0 gap-2">
+                    <label for="dcarNumber">DCAR Number</label>
+                    <input pInputText id="dcarNumber" [(ngModel)]="profile.dcarNumber" name="dcarNumber" type="text" />
+                    </div>
+                    <div class="flex flex-col grow basis-0 gap-2">
+                    <label for="registrationNumber">Registration Number</label>
+                    <input pInputText id="registrationNumber" [(ngModel)]="profile.registrationNumber" name="registrationNumber"  type="text" />
+                    </div>
+                    <div class="flex flex-col grow basis-0 gap-2">
+                    <label for="marketSector">Market Sector</label>
+                    <p-select [options]="dropdownValues" name="marketSector" optionLabel="name" optionValue="name"[(ngModel)]="profile.marketSector" placeholder="Select a sector" />
+                    </div>
+                    <div class="flex flex-col grow basis-0 gap-2">
+                    <label for="profileStatus">Profile Status</label>
+                    <input pInputText id="profileStatus" [(ngModel)]="profile.profileStatus" name="profileStatus" type="text" />
+                    </div>
+                    <div class="flex flex-col grow basis-0 gap-2">
+                    <label for="profileState">Profile State</label>
+                    <input pInputText id="profileState" [(ngModel)]="profile.profileState" name="profileState" type="text" />
+                    </div>
+                </div>
 
-                    
-                    <div class="flex flex-wrap gap-6">
-                        <!-- Client Type -->
-                        <div class="flex flex-col grow basis-0 gap-2">
-                            <label for="clientType">Client Type</label>
-                            <div class="flex flex-col md:flex-row gap-4">
-                                <div class="flex items-center">
-                                    <p-radiobutton name="clientType" value="Internal" [(ngModel)]="profile.clientType"  inputId="internal" /> 
-                                    <label for="internal" class="ml-2">Internal</label>
-                                </div>
-                                <div class="flex items-center">
-                                    <p-radiobutton name="clientType" value="External" [(ngModel)]="profile.clientType"  inputId="external" />
-                                    <label for="external" class="ml-2">External</label>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Product Type -->
-                        <div class="flex flex-col grow basis-0 gap-2">
-                            <label for="productType">Product Type</label>
-                            <div class="flex flex-col md:flex-row gap-4">
+                
+                <div class="flex flex-wrap gap-6">
+                    <!-- Client Type -->
+                    <div class="flex flex-col grow basis-0 gap-2">
+                        <label for="clientType">Client Type</label>
+                        <div class="flex flex-col md:flex-row gap-4">
                             <div class="flex items-center">
-                                <p-checkbox [(ngModel)]="isEFTSelected" [binary]="true" name="productType" />
-                                <label class="ml-2">EFT</label>
+                                <p-radiobutton name="clientType" value="Internal" [(ngModel)]="profile.clientType"  inputId="internal" /> 
+                                <label for="internal" class="ml-2">Internal</label>
                             </div>
+                            <div class="flex items-center">
+                                <p-radiobutton name="clientType" value="External" [(ngModel)]="profile.clientType"  inputId="external" />
+                                <label for="external" class="ml-2">External</label>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Connectivity -->
-                    <div class="font-semibold text-xl">Connectivity</div>
-                    <div class="flex flex-wrap gap-6">
-                        <div class="flex flex-col grow basis-0 gap-2">
-                        <label for="connectDirectAdd">Connect Direct Address</label>
-                        <input pInputText id="connectDirectAdd" [(ngModel)]="profile.connectDirectAdd" name="connectDirectAdd" type="text" />
+                    <!-- Product Type -->
+                    <div class="flex flex-col grow basis-0 gap-2">
+                        <label for="productType">Product Type</label>
+                        <div class="flex flex-col md:flex-row gap-4">
+                        <div class="flex items-center">
+                            <p-checkbox [(ngModel)]="isEFTSelected" [binary]="true" name="productType" />
+                            <label class="ml-2">EFT</label>
                         </div>
-                        <div class="flex flex-col grow basis-0 gap-2">
-                        <label for="connectDirectFileType">Connect Direct File Type</label>
-                        <input pInputText id="connectDirectFileType" [(ngModel)]="profile.connectDirectFileType" name="connectDirectFileType" type="text" />
                         </div>
                     </div>
+                </div>
 
-                    <!-- Contact Details -->
-                    <div class="font-semibold text-xl">Contact Details</div>
-                    <div class="flex flex-wrap gap-6">
-                        <div class="flex flex-col grow basis-0 gap-2">
-                        <label for="physicalAddress">Physical Address</label>
-                        <input pInputText id="physicalAddress" type="text" />
-                        </div>
-                        <div class="flex flex-col grow basis-0 gap-2">
-                        <label for="postalAddress">Postal Address</label>
-                        <input pInputText id="postalAddress"  type="text" />
-                        </div>
-                        <div class="flex flex-col grow basis-0 gap-2">
-                        <label for="telephoneNumber">Telephone Number</label>
-                        <input pInputText id="telephoneNumber"  type="text" />
-                        </div>
-                        <div class="flex flex-col grow basis-0 gap-2">
-                        <label for="emailAddress">Email Address</label>
-                        <input pInputText id="emailAddress"  type="text" />
-                        </div>
-                        <div class="flex flex-col grow basis-0 gap-2">
-                        <label for="faxNumber">Fax Number</label>
-                        <input pInputText id="faxNumber"  type="text" />
-                        </div>
+                <!-- Connectivity -->
+                <div class="font-semibold text-xl">Connectivity</div>
+                <div class="flex flex-wrap gap-6">
+                    <div class="flex flex-col grow basis-0 gap-2">
+                    <label for="connectDirectAdd">Connect Direct Address</label>
+                    <input pInputText id="connectDirectAdd" [(ngModel)]="profile.connectDirectAdd" name="connectDirectAdd" type="text" />
                     </div>
+                    <div class="flex flex-col grow basis-0 gap-2">
+                    <label for="connectDirectFileType">Connect Direct File Type</label>
+                    <input pInputText id="connectDirectFileType" [(ngModel)]="profile.connectDirectFileType" name="connectDirectFileType" type="text" />
+                    </div>
+                </div>
 
-                    <!-- Save Button -->
-                    <div class="mt-4">
-                        <p-button label="Save" type="submit" />
+                <!-- Contact Details -->
+                <div class="font-semibold text-xl">Contact Details</div>
+                <div class="flex flex-wrap gap-6">
+                    <div class="flex flex-col grow basis-0 gap-2">
+                    <label for="physicalAddress">Physical Address</label>
+                    <input pInputText id="physicalAddress" type="text" />
                     </div>
-                    </form>
-                </p-dialog>
-               
-            </div>
-        </div>
+                    <div class="flex flex-col grow basis-0 gap-2">
+                    <label for="postalAddress">Postal Address</label>
+                    <input pInputText id="postalAddress"  type="text" />
+                    </div>
+                    <div class="flex flex-col grow basis-0 gap-2">
+                    <label for="telephoneNumber">Telephone Number</label>
+                    <input pInputText id="telephoneNumber"  type="text" />
+                    </div>
+                    <div class="flex flex-col grow basis-0 gap-2">
+                    <label for="emailAddress">Email Address</label>
+                    <input pInputText id="emailAddress"  type="text" />
+                    </div>
+                    <div class="flex flex-col grow basis-0 gap-2">
+                    <label for="faxNumber">Fax Number</label>
+                    <input pInputText id="faxNumber"  type="text" />
+                    </div>
+                </div>
+
+                <!-- Save Button -->
+                <div class="mt-4">
+                    <p-button label="Save" type="submit" />
+                </div>
+            </form>
+        </p-dialog>
+          
         <p-toast></p-toast>
 
          `, 
@@ -367,12 +363,10 @@ export class ClientProfile implements OnInit {
         profiles: Profile[] = [];
         dt1: any;
         table: any;
-       // profile: any = {};
         productType: any;
         marketSector: string | null | undefined;
-        profileForm!: FormGroup;
         display: boolean = false;
-        
+        form: any;
         
         dropdownValues = [
             { name: 'NBB'},
@@ -385,6 +379,8 @@ export class ClientProfile implements OnInit {
         radioValue: any = null;
         
         @ViewChild('filter') filter!: ElementRef;
+        @ViewChild('profileForm', { static: false }) profileForm!: NgForm;
+    
         
         constructor(  private profileService: ProfileService,
             private service: MessageService,
@@ -396,6 +392,7 @@ export class ClientProfile implements OnInit {
                 this.profiles = data;
                 this.loading = false;
             });
+           
         }
         
         onGlobalFilter(table: Table, event: Event) {
@@ -408,9 +405,10 @@ export class ClientProfile implements OnInit {
             this.filter.nativeElement.value = '';
         }
     
-       
+      
         //To hide and show the modal
-        open() {
+        open(){
+            this.profileForm.reset(); // This clears all fields and resets validation
             this.display = true;
         }
 
@@ -486,5 +484,9 @@ export class ClientProfile implements OnInit {
                 alert('Please fill out all required fields.');
             }
         }
+        
    
     }
+   
+
+    
